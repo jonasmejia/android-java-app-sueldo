@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         btnCalcular = findViewById(R.id.btnCalcular);
         lblResultado = findViewById(R.id.lblResultado);
 
-
-
+        //LLamar a los metodos
+        cargarEstadoCivil();
 
     }
 
