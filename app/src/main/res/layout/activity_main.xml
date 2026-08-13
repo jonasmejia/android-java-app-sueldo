@@ -8,7 +8,6 @@
     tools:context=".MainActivity">
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -72,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Seleccione fecha"
                 android:focusable="false"
-                android:clickable="true"/>
+                android:clickable="true" />
 
             <!-- EDAD -->
 
@@ -111,6 +110,26 @@
                 android:text="¿Es conviviente?"
                 android:textStyle="bold"
                 android:layout_marginTop="15dp"/>
+
+            <RadioGroup
+                android:id="@+id/rgConvivientePrueba"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbConvivientePruebaSi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Si" />
+
+                <RadioButton
+                    android:id="@+id/rbConvivientePruebaNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="No" />
+            </RadioGroup>
 
             <RadioGroup
                 android:id="@+id/rgConviviente"

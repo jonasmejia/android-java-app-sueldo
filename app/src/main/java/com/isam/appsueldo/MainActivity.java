@@ -1,6 +1,13 @@
 package com.isam.appsueldo;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,16 +16,90 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+    //Definimos los objetos
+    EditText txtDni;
+    EditText txtNombres;
+    EditText txtFechaNacimiento;
+    EditText txtEdad;
+
+    //Select estado civil
+    Spinner spEstadoCivil;
+
+    //Default oculto / Se muestra si tiene hijos
+    EditText txtCantidadHijos;
+
+    //Agrupación de radio buttons
+    RadioGroup rgConviviente;
+    RadioButton rbConvivienteSi;
+    RadioButton rbConvivienteNo;
+
+
+    RadioGroup rgHijos;
+    RadioButton rbHijosSi;
+    RadioButton rbHijosNo;
+
+    RadioGroup rgTurno;
+    RadioButton rbManana;
+    RadioButton rbNoche;
+
+    EditText txtHorasTrabajadas;
+    EditText txtPagoHora;
+
+    Button btnCalcular;
+    TextView lblResultado;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        //Terminamos de asociar los objetos (Componenetes)
+        txtDni = findViewById(R.id.txtDni);
+        txtNombres = findViewById(R.id.txtNombres);
+        txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
+        txtEdad = findViewById(R.id.txtEdad);
+
+        spEstadoCivil = findViewById(R.id.spEstadoCivil);
+
+        rgConviviente = findViewById(R.id.rgConviviente);
+        rbConvivienteSi = findViewById(R.id.rbConvivienteSi);
+        rbConvivienteNo = findViewById(R.id.rbConvivienteNo);
+
+        rgHijos = findViewById(R.id.rgHijos);
+        rbHijosSi = findViewById(R.id.rbHijosSi);
+        rbHijosNo = findViewById(R.id.rbHijosNo);
+
+        rgTurno = findViewById(R.id.rgTurno);
+        rbManana = findViewById(R.id.rbManana);
+        rbNoche = findViewById(R.id.rbNoche);
+
+        txtHorasTrabajadas = findViewById(R.id.txtHoras);
+        txtPagoHora = findViewById(R.id.txtPagoHora);
+
+        btnCalcular = findViewById(R.id.btnCalcular);
+        lblResultado = findViewById(R.id.lblResultado);
+
+
+
+
+    }
+
+    public void cargarEstadoCivil(){
+
+        //Definir un arreglo unidimensional de tipo cadena llamada elementos EC que contendrá soltero, casado, viudo, divorciado.
+        String[] elementosEC = {"<Seleccionar>","Soltero", "Casado", "Viudo", "Divorciado", "Conviviente" };
+
+        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_spinner_item,
+                elementosEC
+        );
+
+        adaptador.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spEstadoCivil.setAdapter(adaptador);
     }
 }
