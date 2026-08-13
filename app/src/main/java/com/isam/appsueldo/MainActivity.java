@@ -1,5 +1,7 @@
 package com.isam.appsueldo;
 
+import android.app.DatePickerDialog;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,9 +86,13 @@ public class MainActivity extends AppCompatActivity {
 
         //LLamar a los metodos
         cargarEstadoCivil();
+        configurarFecha();
+
+
 
     }
 
+    //metodo para cargar el estado civil
     public void cargarEstadoCivil(){
 
         //Definir un arreglo unidimensional de tipo cadena llamada elementos EC que contendrá soltero, casado, viudo, divorciado.
@@ -102,4 +108,32 @@ public class MainActivity extends AppCompatActivity {
 
         spEstadoCivil.setAdapter(adaptador);
     }
+
+    //Método para configurar el campo fecha
+    public void configurarFecha() {
+        //Programando el campo Seleccionar fecha de nacimiento txtFechaNacimiento
+        txtFechaNacimiento.setOnClickListener(vista ->{
+            //Instanciar el objeto calendario de la clase Calendar
+            Calendar calendario = Calendar.getInstance();
+            //Crear variables para almacenar los datos del dia, mes y año gracias al objeto calendario
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
+            int mes = calendario.get(Calendar.MONTH);
+            int anho = calendario.get(Calendar.YEAR);
+
+            //Procesamos los datos de la fecha
+            DatePickerDialog dialogo = new DatePickerDialog(
+                    MainActivity.this,
+                    (datePicker, year, month, dayOfMonth) -> {
+                        String fecha = dayOfMonth +"/" + (month + 1) + "/" + year;
+                        txtFechaNacimiento.setText(fecha);
+                    },
+                    anho,
+                    mes,
+                    dia
+            );
+
+            dialogo.show();
+        });
+    }
+
 }
