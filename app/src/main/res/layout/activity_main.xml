@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- TÍTULO -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cálculo de Sueldo"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- DNI -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DNI"/>
+
+            <EditText
+                android:id="@+id/txtDni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese DNI"
+                android:inputType="number"
+                android:maxLength="8"/>
+
+            <!-- NOMBRES -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombres y apellidos"
+                android:layout_marginTop="12dp"/>
+
+            <EditText
+                android:id="@+id/txtNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese nombres y apellidos"/>
+
+            <!-- FECHA DE NACIMIENTO -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento"
+                android:layout_marginTop="12dp"/>
+
+            <EditText
+                android:id="@+id/txtFechaNacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Seleccione fecha"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <!-- EDAD -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edad"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:id="@+id/txtEdad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Edad calculada"
+                android:enabled="false"/>
+
+            <!-- ESTADO CIVIL -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado civil"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <Spinner
+                android:id="@+id/spEstadoCivil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <!-- CONVIVIENTE -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Es conviviente?"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <RadioGroup
+                android:id="@+id/rgConviviente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbConvivienteSi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sí"/>
+
+                <RadioButton
+                    android:id="@+id/rbConvivienteNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:checked="true"/>
+
+            </RadioGroup>
+
+            <!-- HIJOS -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¿Tiene hijos?"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <RadioGroup
+                android:id="@+id/rgHijos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbHijosSi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sí"/>
+
+                <RadioButton
+                    android:id="@+id/rbHijosNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:checked="true"/>
+
+            </RadioGroup>
+
+            <!-- CANTIDAD DE HIJOS -->
+
+            <LinearLayout
+                android:id="@+id/contenedorHijos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cantidad de hijos"/>
+
+                <EditText
+                    android:id="@+id/txtCantidadHijos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Cantidad"
+                    android:inputType="number"/>
+
+            </LinearLayout>
+
+            <!-- DATOS LABORALES -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DATOS LABORALES"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="15dp"/>
+
+            <!-- HORAS -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horas trabajadas"/>
+
+            <EditText
+                android:id="@+id/txtHoras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ingrese horas trabajadas"
+                android:inputType="numberDecimal"/>
+
+            <!-- TURNO -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Turno"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"/>
+
+            <RadioGroup
+                android:id="@+id/rgTurno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rbManana"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mañana"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/rbNoche"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Noche"/>
+
+            </RadioGroup>
+
+            <!-- PAGO POR HORA -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pago por hora"
+                android:layout_marginTop="10dp"/>
+
+            <EditText
+                android:id="@+id/txtPagoHora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="50.00"
+                android:enabled="false"/>
+
+            <!-- BOTÓN -->
+
+            <Button
+                android:id="@+id/btnCalcular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CALCULAR SUELDO"
+                android:textSize="17sp"
+                android:layout_marginTop="25dp"/>
+
+            <!-- RESULTADO -->
+
+            <TextView
+                android:id="@+id/lblResultado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="17sp"
+                android:layout_marginTop="20dp"
+                android:padding="15dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
