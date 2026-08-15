@@ -56,8 +56,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout contenedorHijos;
 
     double pagoHora = 50;
-
-
+    int edad = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +97,7 @@ public class MainActivity extends AppCompatActivity {
         configurarFecha();
         mostrarHijos();
         configurarTurno();
-
-
-
+        configurarbtnCalcular();
 
 
     }
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
     //MEtodo que calcula la edad
     private void calcularEdad(int anho, int mes, int dia) {
         Calendar fechaActual = Calendar.getInstance();
-        int edad = fechaActual.get(Calendar.YEAR) - anho;
+        edad = fechaActual.get(Calendar.YEAR) - anho;
 
         Calendar fechaCumpleanho = Calendar.getInstance();
         fechaCumpleanho.set(anho, mes, dia);
@@ -182,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //MEtodo que asignara el monto a pagar por tuno
+    //Metodo que asignara el monto a pagar por tuno
     public void configurarTurno(){
         rgTurno.setOnCheckedChangeListener((radioGroup, checkedId) -> {
             if(checkedId == R.id.rbManana){
@@ -192,5 +189,40 @@ public class MainActivity extends AppCompatActivity {
             }
             txtPagoHora.setText(String.format("%.2f", pagoHora));
         });
+    }
+
+    public void configurarbtnCalcular(){
+        btnCalcular.setOnClickListener(vista -> {
+            calcularSueldo();
+
+        });
+    };
+    public void calcularSueldo(){
+        //capturar datos
+        //dni, nombres, fechaNacimiento, horas
+        String dni = txtDni.getText().toString();
+        String nombres = txtNombres.getText().toString();
+        String fechaNacimiento = txtFechaNacimiento.getText().toString();
+        String horas = txtHorasTrabajadas.getText().toString();
+
+        if(dni.isEmpty() || nombres.isEmpty() || fechaNacimiento.isEmpty() || horas.isEmpty()){
+            Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(dni.length() != 8){
+            Toast.makeText(this, "El DNI debe tener 8 caracteres", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //CAlcular el sueldo bruto
+        double sueldoBruto = Double.parseDouble(horas) * pagoHora;
+
+        // verificar hijos
+        boolean tieneHijos = rbHijosSi.isChecked();
+
+
+
+
     }
 }
