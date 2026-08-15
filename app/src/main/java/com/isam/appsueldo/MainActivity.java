@@ -20,6 +20,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+//Calcular el sueldo de un trabajardor en base a lo siguiente.
+//pedir la siguiente información: Dni nombres y apellidos, fecha de nacimiento, estado civil (Soltero / casado / viudo / divorciado),
+//conviviente (si / no)
+//tiene hijos: (Si / No)
+//Si tiene hijos mostrar campo para pedir cantidad de hijos.
+//Abajo: horas trabajadas.
+//Pago por horas.
+//        turno: mañana / noche
+//
+//
+//
+//Ahora aplicar un descuento del seguro essalud si no tiene hijos 10% de descuento, si tiene hijos 20% de descuento de su sueldo bruto.
+//si es casado un bono de 200 soles y si tiene hijos se aplica 5% de bono de su sueldo bruto por cada hijo.
+//si tiene mas de 45 años un bono de 100 soles.
+//si el turno de trabajo es nocturno se paga 80 soles la hora y si es diurno se paga 50 soles la hora.
+//
+//
 public class MainActivity extends AppCompatActivity {
     //Definimos los objetos
     EditText txtDni;
