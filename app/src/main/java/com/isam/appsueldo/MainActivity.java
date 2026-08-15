@@ -3,9 +3,11 @@ package com.isam.appsueldo;
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     Button btnCalcular;
     TextView lblResultado;
 
+    LinearLayout contenedorHijos;
+
 
 
     @Override
@@ -85,9 +89,14 @@ public class MainActivity extends AppCompatActivity {
         btnCalcular = findViewById(R.id.btnCalcular);
         lblResultado = findViewById(R.id.lblResultado);
 
+        contenedorHijos = findViewById(R.id.contenedorHijos);
+
         //LLamar a los metodos
         cargarEstadoCivil();
         configurarFecha();
+        mostrarHijos();
+
+
 
 
 
@@ -157,5 +166,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         txtEdad.setText(String.valueOf(edad));
+    }
+
+    public void mostrarHijos(){
+        //Mostrar / ocultar cantidad de hijos
+        rgHijos.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+            if(checkedId == R.id.rbHijosSi){
+                contenedorHijos.setVisibility(View.VISIBLE);
+            }else{
+                contenedorHijos.setVisibility(View.GONE);
+
+            }
+        });
     }
 }
