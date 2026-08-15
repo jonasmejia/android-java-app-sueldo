@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
     //metodo para cargar el estado civil
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     (datePicker, year, month, dayOfMonth) -> {
                         String fecha = dayOfMonth +"/" + (month + 1) + "/" + year;
                         txtFechaNacimiento.setText(fecha);
+                        calcularEdad(year, month, dayOfMonth);
                     },
                     anho,
                     mes,
@@ -136,4 +139,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //MEtodo que calcula la edad
+    private void calcularEdad(int anho, int mes, int dia) {
+        Calendar fechaActual = Calendar.getInstance();
+        int edad = fechaActual.get(Calendar.YEAR) - anho;
+
+        Calendar fechaCumpleanho = Calendar.getInstance();
+        fechaCumpleanho.set(anho, mes, dia);
+
+        if (fechaActual.before(fechaCumpleanho)) {
+            txtEdad.setText("0");
+            return;
+        }
+
+        if (fechaCumpleanho.get(Calendar.DAY_OF_YEAR) < fechaCumpleanho.get(Calendar.DAY_OF_YEAR)) {
+            edad--;
+        }
+
+        txtEdad.setText(String.valueOf(edad));
+    }
 }
