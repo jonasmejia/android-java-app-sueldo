@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     LinearLayout contenedorHijos;
 
+    double pagoHora = 50;
+
 
 
     @Override
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         cargarEstadoCivil();
         configurarFecha();
         mostrarHijos();
-
+        configurarTurno();
 
 
 
@@ -177,6 +179,18 @@ public class MainActivity extends AppCompatActivity {
                 contenedorHijos.setVisibility(View.GONE);
 
             }
+        });
+    }
+
+    //MEtodo que asignara el monto a pagar por tuno
+    public void configurarTurno(){
+        rgTurno.setOnCheckedChangeListener((radioGroup, checkedId) -> {
+            if(checkedId == R.id.rbManana){
+                pagoHora = 50;
+            }else if(checkedId == R.id.rbNoche){
+                pagoHora = 80;
+            }
+            txtPagoHora.setText(String.format("%.2f", pagoHora));
         });
     }
 }
