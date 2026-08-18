@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         String nombres = txtNombres.getText().toString();
         String fechaNacimiento = txtFechaNacimiento.getText().toString();
         String horasTexto = txtHorasTrabajadas.getText().toString();
-        Double horas = Double.parseDouble(horasTexto);
+
 
         if(dni.isEmpty() || nombres.isEmpty() || fechaNacimiento.isEmpty() || horasTexto.isEmpty()){
             Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
@@ -235,6 +235,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "El DNI debe tener 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        double horas = Double.parseDouble(horasTexto);
 
         //CAlcular el sueldo bruto
         double sueldoBruto = horas * pagoHora;
@@ -315,9 +317,8 @@ public class MainActivity extends AppCompatActivity {
 
         // ESTADO CIVIL
         String estadoCivil =
-                spEstadoCivil
-                        .getSelectedItem()
-                        .toString();
+                spEstadoCivil.getSelectedItem()
+                            .toString();
 
 
         // BONO POR CASADO
@@ -329,8 +330,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // BONO POR HIJOS
-
-
         double bonoHijos = 0;
 
         if (tieneHijos) {
@@ -341,10 +340,7 @@ public class MainActivity extends AppCompatActivity {
                             * cantidadHijos;
         }
 
-        // ============================
         // BONO POR EDAD
-        // ============================
-
         double bonoEdad = 0;
 
         if (edad > 45) {
@@ -352,27 +348,17 @@ public class MainActivity extends AppCompatActivity {
             bonoEdad = 100;
         }
 
-        // ============================
         // TOTAL BONIFICACIONES
-        // ============================
+        double totalBonificaciones = bonoCasado + bonoHijos + bonoEdad;
 
-        double totalBonificaciones =
-                bonoCasado
-                        + bonoHijos
-                        + bonoEdad;
-
-        // ============================
         // SUELDO NETO
-        // ============================
-
         double sueldoNeto =
                 sueldoBruto
                         - descuentoSeguro
                         + totalBonificaciones;
 
-        // ============================
         // MOSTRAR RESULTADO
-        // ============================
+
 
         mostrarResultado(
                 dni,
@@ -449,30 +435,17 @@ public class MainActivity extends AppCompatActivity {
 
                 "RESUMEN DE PLANILLA\n\n"
 
-                        + "DNI: "
-                        + dni
-                        + "\n"
+                        + "DNI: " + dni + "\n"
 
-                        + "Trabajador: "
-                        + nombres
-                        + "\n"
+                        + "Trabajador: " + nombres + "\n"
 
-                        + "Fecha de nacimiento: "
-                        + fechaNacimiento
-                        + "\n"
+                        + "Fecha de nacimiento: " + fechaNacimiento + "\n"
 
-                        + "Edad: "
-                        + edad
-                        + " años\n"
+                        + "Edad: " + edad + " años\n"
 
-                        + "Estado civil: "
-                        + estadoCivil
-                        + "\n"
+                        + "Estado civil: " + estadoCivil + "\n"
 
-                        + "Conviviente: "
-                        + conviviente
-                        + "\n"
-
+                        + "Conviviente: " + conviviente
                         + "Cantidad de hijos: "
                         + cantidadHijos
                         + "\n\n"
