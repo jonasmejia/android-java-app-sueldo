@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         txtNombres = findViewById(R.id.txtNombres);
         txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
         txtEdad = findViewById(R.id.txtEdad);
+        txtCantidadHijos = findViewById(R.id.txtCantidadHijos);
 
         spEstadoCivil = findViewById(R.id.spEstadoCivil);
 
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         lblResultado = findViewById(R.id.lblResultado);
 
         contenedorHijos = findViewById(R.id.contenedorHijos);
+
 
         //LLamar a los metodos
         cargarEstadoCivil();
@@ -221,9 +223,10 @@ public class MainActivity extends AppCompatActivity {
         String dni = txtDni.getText().toString();
         String nombres = txtNombres.getText().toString();
         String fechaNacimiento = txtFechaNacimiento.getText().toString();
-        String horas = txtHorasTrabajadas.getText().toString();
+        String horasTexto = txtHorasTrabajadas.getText().toString();
+        Double horas = Double.parseDouble(horasTexto);
 
-        if(dni.isEmpty() || nombres.isEmpty() || fechaNacimiento.isEmpty() || horas.isEmpty()){
+        if(dni.isEmpty() || nombres.isEmpty() || fechaNacimiento.isEmpty() || horasTexto.isEmpty()){
             Toast.makeText(this, "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -234,13 +237,319 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //CAlcular el sueldo bruto
-        double sueldoBruto = Double.parseDouble(horas) * pagoHora;
+        double sueldoBruto = horas * pagoHora;
 
         // verificar hijos
         boolean tieneHijos = rbHijosSi.isChecked();
 
+        // ============================
+        // VERIFICAR HIJOS
+        // ============================
+
+        int cantidadHijos = 0;
+
+        if (tieneHijos) {
+
+            String cantidadTexto =
+                    txtCantidadHijos
+                            .getText()
+                            .toString()
+                            .trim();
+
+            if (cantidadTexto.isEmpty()) {
+
+                txtCantidadHijos
+                        .setError(
+                                "Ingrese la cantidad de hijos"
+                        );
+
+                return;
+            }
+
+            try {
+
+                cantidadHijos =
+                        Integer.parseInt(
+                                cantidadTexto
+                        );
+
+            } catch (NumberFormatException e) {
+
+                txtCantidadHijos
+                        .setError(
+                                "Ingrese un número válido"
+                        );
+
+                return;
+            }
+
+            if (cantidadHijos <= 0) {
+
+                txtCantidadHijos
+                        .setError(
+                                "La cantidad debe ser mayor que 0"
+                        );
+
+                return;
+            }
+        }
 
 
+        // DESCUENTO ESSALUD
 
+        double descuentoSeguro;
+
+        if (tieneHijos) {
+
+            // 20%
+            descuentoSeguro =
+                    sueldoBruto * 0.20;
+
+        } else {
+
+            // 10%
+            descuentoSeguro =
+                    sueldoBruto * 0.10;
+        }
+
+
+        // ESTADO CIVIL
+        String estadoCivil =
+                spEstadoCivil
+                        .getSelectedItem()
+                        .toString();
+
+
+        // BONO POR CASADO
+        double bonoCasado = 0;
+
+        if (estadoCivil.equals("Casado")) {
+
+            bonoCasado = 200;
+        }
+
+        // BONO POR HIJOS
+
+
+        double bonoHijos = 0;
+
+        if (tieneHijos) {
+
+            bonoHijos =
+                    sueldoBruto
+                            * 0.05
+                            * cantidadHijos;
+        }
+
+        // ============================
+        // BONO POR EDAD
+        // ============================
+
+        double bonoEdad = 0;
+
+        if (edad > 45) {
+
+            bonoEdad = 100;
+        }
+
+        // ============================
+        // TOTAL BONIFICACIONES
+        // ============================
+
+        double totalBonificaciones =
+                bonoCasado
+                        + bonoHijos
+                        + bonoEdad;
+
+        // ============================
+        // SUELDO NETO
+        // ============================
+
+        double sueldoNeto =
+                sueldoBruto
+                        - descuentoSeguro
+                        + totalBonificaciones;
+
+        // ============================
+        // MOSTRAR RESULTADO
+        // ============================
+
+        mostrarResultado(
+                dni,
+                nombres,
+                fechaNacimiento,
+                estadoCivil,
+                cantidadHijos,
+                horas,
+                sueldoBruto,
+                descuentoSeguro,
+                bonoCasado,
+                bonoHijos,
+                bonoEdad,
+                totalBonificaciones,
+                sueldoNeto
+        );
     }
+
+    // =====================================
+    // MOSTRAR RESULTADOS
+    // =====================================
+
+    private void mostrarResultado(
+            String dni,
+            String nombres,
+            String fechaNacimiento,
+            String estadoCivil,
+            int cantidadHijos,
+            double horas,
+            double sueldoBruto,
+            double descuento,
+            double bonoCasado,
+            double bonoHijos,
+            double bonoEdad,
+            double totalBonificaciones,
+            double sueldoNeto) {
+
+        // ============================
+        // OBTENER TURNO
+        // ============================
+
+        String turno;
+
+        if (rbManana.isChecked()) {
+
+            turno = "Mañana";
+
+        } else {
+
+            turno = "Noche";
+        }
+
+        // ============================
+        // OBTENER CONVIVIENTE
+        // ============================
+
+        String conviviente = "No";
+
+        int idConviviente =
+                rgConviviente
+                        .getCheckedRadioButtonId();
+
+        if (idConviviente
+                == R.id.rbConvivienteSi) {
+
+            conviviente = "Sí";
+        }
+
+        // ============================
+        // TEXTO RESULTADO
+        // ============================
+
+        String resultado =
+
+                "RESUMEN DE PLANILLA\n\n"
+
+                        + "DNI: "
+                        + dni
+                        + "\n"
+
+                        + "Trabajador: "
+                        + nombres
+                        + "\n"
+
+                        + "Fecha de nacimiento: "
+                        + fechaNacimiento
+                        + "\n"
+
+                        + "Edad: "
+                        + edad
+                        + " años\n"
+
+                        + "Estado civil: "
+                        + estadoCivil
+                        + "\n"
+
+                        + "Conviviente: "
+                        + conviviente
+                        + "\n"
+
+                        + "Cantidad de hijos: "
+                        + cantidadHijos
+                        + "\n\n"
+
+                        + "DATOS LABORALES\n\n"
+
+                        + "Turno: "
+                        + turno
+                        + "\n"
+
+                        + "Horas trabajadas: "
+                        + String.format(
+                        "%.2f",
+                        horas
+                )
+                        + "\n"
+
+                        + "Pago por hora: S/ "
+                        + String.format(
+                        "%.2f",
+                        pagoHora
+                )
+                        + "\n\n"
+
+                        + "Sueldo bruto: S/ "
+                        + String.format(
+                        "%.2f",
+                        sueldoBruto
+                )
+                        + "\n"
+
+                        + "Descuento EsSalud: S/ "
+                        + String.format(
+                        "%.2f",
+                        descuento
+                )
+                        + "\n\n"
+
+                        + "BONIFICACIONES\n\n"
+
+                        + "Bono por casado: S/ "
+                        + String.format(
+                        "%.2f",
+                        bonoCasado
+                )
+                        + "\n"
+
+                        + "Bono por hijos: S/ "
+                        + String.format(
+                        "%.2f",
+                        bonoHijos
+                )
+                        + "\n"
+
+                        + "Bono por edad: S/ "
+                        + String.format(
+                        "%.2f",
+                        bonoEdad
+                )
+                        + "\n"
+
+                        + "Total bonificaciones: S/ "
+                        + String.format(
+                        "%.2f",
+                        totalBonificaciones
+                )
+                        + "\n\n"
+
+                        + "------------------------------\n"
+
+                        + "SUELDO NETO: S/ "
+                        + String.format(
+                        "%.2f",
+                        sueldoNeto
+                );
+
+        lblResultado.setText(resultado);
+    }
+
 }
